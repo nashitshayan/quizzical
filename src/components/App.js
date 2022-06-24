@@ -8,10 +8,10 @@ function App() {
 	return (
 		<div className='app-wrapper'>
 			<Routes>
-				<Route pasth='/' element={<Login />} />
-				<Route pasth='/signup' element={<SignUp />} />
-				<Route pasth='/password-reset' element={<PasswordReset />} />
-				<Route pasth='/home' element={<Home />} />
+				<Route path='/' element={<Login />} />
+				<Route path='/signup' element={<SignUp />} />
+				<Route path='/password-reset' element={<PasswordReset />} />
+				<Route path='/home' element={<Home />} />
 			</Routes>
 		</div>
 	);
