@@ -7,4 +7,4 @@ A Quiz app made using ReactJS
 
 
 ## Credits
-* <a href="https://iconscout.com/icons/quiz" target="_blank">Quiz Icon</a> by <a href="https://iconscout.com/contributors/yogswpy" target="_blank">Widyatmoko P.Y</a>
+* <a href="https://www.flaticon.com/free-icons/quiz" title="quiz icons">Quiz icons created by Freepik - Flaticon</a>
