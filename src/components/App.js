@@ -3,6 +3,8 @@ import Login from './Auth/Login';
 import SignUp from './Auth/SignUp';
 import PasswordReset from './Auth/PasswordReset';
 import Home from './Quiz/Home';
+import Header from './Header';
+import Footer from './Footer';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import { useState } from 'react';
 
@@ -18,6 +20,7 @@ function App() {
 	};
 	return (
 		<div className='app-wrapper'>
+			<Header />
 			<Routes>
 				<Route
 					path='/'
@@ -64,6 +67,7 @@ function App() {
 					}
 				/>
 			</Routes>
+			<Footer />
 		</div>
 	);
 }

@@ -11,24 +11,29 @@
 	--clr--accent--one: #4d5b9e;
 	--clr--accent--two: #d6dbf5;
 	--clr--line: #dbdef0;
-	--clr--sucess: #94d7a2;
+	--clr--success: #94d7a2;
 	--clr--failure: #f8bcbc;
 }
 body {
-	/* border: 1px solid red; */
-	min-height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	background-color: var(--clr--primary);
 	color: var(--clr--secondary);
 	font-family: 'Roboto';
 }
+
 .app-wrapper {
 	/* border: 1px solid red; */
-	/* display: flex;
-	justify-content: center;
-	align-items: center; */
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+header,
+footer {
+	background-color: var(--clr--accent--one);
+	color: var(--clr--primary);
+	padding: 1.5em;
+	text-align: center;
 }
 
 .auth-container {
@@ -45,4 +50,10 @@ body {
 }
 .auth-container button:hover {
 	background-color: var(--clr--secondary);
+}
+
+footer a {
+	text-decoration: none;
+	color: var(--clr--success);
+	cursor: pointer;
 }
