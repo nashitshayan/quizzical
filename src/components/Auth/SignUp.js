@@ -8,10 +8,23 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { inputOutlineOverride } from '../../styles/inline-styles';
-
-function SignUp({ username, email, password, handleInput }) {
-	const handleSubmit = () => {};
-
+import { useUserAuth } from '../../context/UserAuthContext';
+import { useNavigate } from 'react-router';
+function SignUp({ username, email, password, handleInput, error, setError }) {
+	const { signUp, updateUserName } = useUserAuth();
+	const navigate = useNavigate();
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			setError('');
+			await signUp(email, password);
+			await updateUserName(username);
+			navigate('/');
+		} catch (err) {
+			setError(err.message);
+			alert(error);
+		}
+	};
 	return (
 		<Container component='main' maxWidth='xs' className='auth-container'>
 			<Box
@@ -56,6 +69,7 @@ function SignUp({ username, email, password, handleInput }) {
 						margin='normal'
 						required
 						fullWidth
+						type='password'
 						id='password'
 						label='Password'
 						name='password'

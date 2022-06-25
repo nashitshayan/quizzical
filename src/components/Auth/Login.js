@@ -9,10 +9,32 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import GoogleIcon from '@mui/icons-material/Google';
 import { inputOutlineOverride } from '../../styles/inline-styles';
+import { useNavigate } from 'react-router-dom';
+import { useUserAuth } from '../../context/UserAuthContext';
 
-function Login({ email, password, handleInput }) {
-	const handleSubmit = () => {};
-
+function Login({ email, password, handleInput, error, setError }) {
+	const navigate = useNavigate();
+	const { signIn, googleSignIn } = useUserAuth();
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setError('');
+		try {
+			await signIn(email, password);
+			navigate('/home');
+		} catch (err) {
+			setError(err.messgage);
+		}
+	};
+	const handleGoogleSignIn = async (e) => {
+		e.preventDefault();
+		try {
+			await googleSignIn();
+			navigate('/home');
+		} catch (err) {
+			setError(err.messgage);
+			console.log(error);
+		}
+	};
 	return (
 		<Container component='main' maxWidth='xs' className='auth-container'>
 			<Box
@@ -46,6 +68,7 @@ function Login({ email, password, handleInput }) {
 						margin='normal'
 						required
 						fullWidth
+						type='password'
 						id='password'
 						label='Password'
 						name='password'
@@ -71,7 +94,8 @@ function Login({ email, password, handleInput }) {
 						type='submit'
 						fullWidth
 						variant='contained'
-						sx={{ mt: 1, mb: 2, p: 1 }}>
+						sx={{ mt: 1, mb: 2, p: 1 }}
+						onClick={handleGoogleSignIn}>
 						<GoogleIcon sx={{ mr: 1 }} />
 						Continue with Google
 					</Button>
