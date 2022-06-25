@@ -8,19 +8,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import GoogleIcon from '@mui/icons-material/Google';
+import { inputOutlineOverride } from '../../styles/inline-styles';
 
-function Login() {
+function Login({ email, password, handleInput }) {
 	const handleSubmit = () => {};
-	const inputOutlineOverride = {
-		'& .MuiOutlinedInput-root.Mui-focused': {
-			'& > fieldset': {
-				borderColor: '#293264',
-			},
-		},
-		'& .MuiInputLabel-root.Mui-focused': {
-			color: '#293264',
-		},
-	};
+
 	return (
 		<Container component='main' maxWidth='xs' className='auth-container'>
 			<Box
@@ -47,6 +39,8 @@ function Login() {
 						autoComplete='email'
 						autoFocus
 						sx={inputOutlineOverride}
+						value={email}
+						onChange={(e) => handleInput(e.target.name, e.target.value)}
 					/>
 					<TextField
 						margin='normal'
@@ -57,6 +51,8 @@ function Login() {
 						name='password'
 						autoComplete='current-password'
 						sx={inputOutlineOverride}
+						value={password}
+						onChange={(e) => handleInput(e.target.name, e.target.value)}
 					/>
 					<Button
 						type='submit'
