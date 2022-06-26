@@ -18,6 +18,9 @@
 	background-color: var(--clr--line);
 	margin: 1em 0;
 }
+.align-center {
+	margin: 0 auto;
+}
 body {
 	background-color: var(--clr--primary);
 	color: var(--clr--secondary);
@@ -126,6 +129,11 @@ footer {
 }
 .quiz-item__choices-choice:hover {
 	background-color: var(--clr--accent--two);
+}
+
+.result-wrapper {
+	display: flex;
+	justify-content: center;
 }
 
 footer a {

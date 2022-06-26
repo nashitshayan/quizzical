@@ -27,7 +27,14 @@ function Quiz() {
 			<hr className='break-line' />
 		</div>
 	));
-	return <div className='quiz-wrapper'>{quiz}</div>;
+	return (
+		<div className='quiz-wrapper'>
+			{quiz}
+			<div className='result-wrapper'>
+				<button className='btn-primary'>Check Answers</button>
+			</div>
+		</div>
+	);
 }
 
 export default Quiz;
