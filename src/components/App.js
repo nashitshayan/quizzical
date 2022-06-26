@@ -7,7 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import { useState } from 'react';
-
+import Quiz from './Quiz/Quiz';
 function App() {
 	const [username, setUserName] = useState('');
 	const [email, setEmail] = useState('');
@@ -63,6 +63,14 @@ function App() {
 					element={
 						<ProtectedRoute>
 							<Home />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/quiz'
+					element={
+						<ProtectedRoute>
+							<Quiz />
 						</ProtectedRoute>
 					}
 				/>
