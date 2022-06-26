@@ -10,12 +10,16 @@ function Home() {
 		}
 	};
 	return (
-		<div>
-			Home
-			<button onClick={handleLogOut} className='btn-cv-toggle'>
-				Log Out
-			</button>
-		</div>
+		<main className='home-wrapper'>
+			<h2>It's Quiz TIme!</h2>
+			<div className='btn-wrapper'>
+				<button className='btn-primary'> Leaderboard</button>
+				<button className='btn-primary'>Start Quiz</button>
+				<button className='btn-primary' onClick={handleLogOut}>
+					Log Out
+				</button>
+			</div>
+		</main>
 	);
 }
 
