@@ -9,17 +9,17 @@ export const inputOutlineOverride = {
 	},
 };
 
+export const answerDefault = {
+	backgroundColor: 'transparent',
+};
 export const answerSelected = {
 	backgroundColor: '#D6DbF5',
-	color: '#293264',
 };
 
 export const answerCorrect = {
 	backgroundColor: '#94D7A2',
-	color: '#293264',
 };
 
-export const answerWrong = {
+export const answerIncorrect = {
 	backgroundColor: '#F8BCBC',
-	color: '#293264',
 };
