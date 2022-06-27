@@ -11,6 +11,12 @@ function Quiz({
 	handleAnswerSelected,
 	answerStyle,
 }) {
+	const customAnswerStyles = (answer) => {
+		if (answer.isCorrect) return answerCorrect;
+		if (answer.isInCorrect) return answerIncorrect;
+		if (answer.isSelected) return answerSelected;
+		return answerDefault;
+	};
 	const quiz = quizQuestions.map((quizQuestion, qIndex) => (
 		<div className='quiz-item' key={qIndex}>
 			<h3>{quizQuestion}</h3>
@@ -18,7 +24,7 @@ function Quiz({
 				{quizAnswers[qIndex].map((quizAnswer, aIndex) => (
 					<li
 						key={aIndex}
-						style={quizAnswer.isSelected ? answerSelected : answerDefault}
+						style={customAnswerStyles(quizAnswer)}
 						className='quiz-item__options-option'
 						onClick={() => handleAnswerSelected(qIndex, aIndex)}>
 						{quizAnswer.option}
