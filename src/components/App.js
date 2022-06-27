@@ -66,14 +66,6 @@ function App() {
 						</ProtectedRoute>
 					}
 				/>
-				<Route
-					path='/quiz'
-					element={
-						<ProtectedRoute>
-							<Quiz />
-						</ProtectedRoute>
-					}
-				/>
 			</Routes>
 			<Footer />
 		</div>

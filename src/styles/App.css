@@ -29,7 +29,7 @@ body {
 
 .app-wrapper {
 	/* border: 1px solid red; */
-	height: 100vh;
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -66,20 +66,19 @@ footer {
 	border: 1px solid var(--clr--secondary);
 	border-radius: 15px;
 	color: var(--clr--secondary);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-around;
-	/* gap: 1.5em; */
-	margin-inline: auto;
-	width: min(90%, 450px);
-	height: 200px;
+	width: min(90%, 750px);
+	min-height: 250px;
+	margin: 2em auto;
 	padding: 2em;
 	transition: 0.5s ease-in-out;
 }
+nav {
+	text-align: center;
+}
 .btn-wrapper {
-	margin-top: -1em;
+	margin-top: 1em;
 	display: flex;
+	justify-content: center;
 	gap: 1em;
 }
 .btn-primary {
@@ -98,18 +97,13 @@ footer {
 /* mobile */
 
 @media only screen and (max-width: 500px) {
-	.home-wrapper {
-		height: 300px;
-	}
 	.btn-wrapper {
-		margin-top: 1em;
 		flex-direction: column;
 	}
 }
 
 .quiz-wrapper {
-	max-width: 90%;
-	margin: 2em auto;
+	margin: 2em 0;
 }
 
 .quiz-item__choices {
