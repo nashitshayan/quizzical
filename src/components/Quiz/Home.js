@@ -5,6 +5,7 @@ function Home() {
 	const { logOut } = useUserAuth();
 	const [quizQuestions, setQuizQuestions] = useState([]);
 	const [quizAnswers, setQuizAnswers] = useState([]);
+	const [correctAnswers, setCorrectAnswers] = useState([]);
 	const [isQuiz, setIsQuiz] = useState(false);
 
 	const handleAnswerSelected = (qId, aId) => {
@@ -35,19 +36,21 @@ function Home() {
 			answers.push({
 				option: quizItem.correct_answer,
 				isSelected: false,
-				isCorrect: false,
 			});
 			quizItem.incorrect_answers.forEach((incorrectAns) =>
 				answers.push({
 					option: incorrectAns,
 					isSelected: false,
-					isCorrect: false,
 				}),
 			);
 
 			setQuizAnswers((prevAnswers) => [
 				...prevAnswers,
 				shuffleAnswers(answers),
+			]);
+			setCorrectAnswers((prevCorrectAnswers) => [
+				...prevCorrectAnswers,
+				quizItem.correct_answer,
 			]);
 			setQuizQuestions((prevQuestions) => [
 				...prevQuestions,
@@ -57,14 +60,31 @@ function Home() {
 	};
 	const handleGetQuiz = async () => {
 		const res = await fetch(
-			'https://opentdb.com/api.php?amount=5&type=multiple',
+			'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple',
 		);
 		const data = await res.json();
 		processFechedData(data.results);
 		setIsQuiz(true);
 	};
 
-	const handleCheckAnswers = () => {};
+	const handleCheckAnswers = () => {
+		setQuizAnswers((oldQuizAnswers) => {
+			const updatedQuizAnswers = oldQuizAnswers.map(
+				(quizItemAnswers, index) => {
+					const updatedQuizItemAnswers = quizItemAnswers.map((answer) => {
+						if (answer.isSelected) {
+							if (answer.option === correctAnswers[index])
+								return { ...answer, isCorrect: true };
+							return { ...answer, isInCorrect: true };
+						}
+						return answer;
+					});
+					return updatedQuizItemAnswers;
+				},
+			);
+			return updatedQuizAnswers;
+		});
+	};
 	const handleLogOut = async () => {
 		try {
 			await logOut();
