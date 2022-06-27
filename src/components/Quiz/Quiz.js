@@ -1,14 +1,27 @@
-function Quiz({ quizData }) {
-	const quiz = quizData.map((quizItem, index) => (
-		<div className='quiz-item' key={index}>
-			<h3>{quizItem.question}</h3>
-			<div className='quiz-item__choices'>
-				{shuffleAnswers(
-					quizItem.incorrect_answers,
-					quizItem.correct_answer,
-				).map((choice, index) => (
-					<li key={index} className='quiz-item__choices-choice'>
-						{choice}
+import {
+	answerCorrect,
+	answerDefault,
+	answerSelected,
+	answerIncorrect,
+} from '../../styles/inline-styles';
+
+function Quiz({
+	quizQuestions,
+	quizAnswers,
+	handleAnswerSelected,
+	answerStyle,
+}) {
+	const quiz = quizQuestions.map((quizQuestion, qIndex) => (
+		<div className='quiz-item' key={qIndex}>
+			<h3>{quizQuestion}</h3>
+			<div className='quiz-item__options'>
+				{quizAnswers[qIndex].map((quizAnswer, aIndex) => (
+					<li
+						key={aIndex}
+						style={quizAnswer.isSelected ? answerSelected : answerDefault}
+						className='quiz-item__options-option'
+						onClick={() => handleAnswerSelected(qIndex, aIndex)}>
+						{quizAnswer.option}
 					</li>
 				))}
 			</div>
@@ -19,15 +32,3 @@ function Quiz({ quizData }) {
 }
 
 export default Quiz;
-
-function shuffleAnswers(wrongAnswersArray, correctAnswer) {
-	const answersArray = [...wrongAnswersArray, correctAnswer];
-	for (let i = answersArray.length - 1; i > 0; i--) {
-		const randomIndex = Math.floor(Math.random() * (i + 1));
-		[answersArray[i], answersArray[randomIndex]] = [
-			answersArray[randomIndex],
-			answersArray[i],
-		];
-	}
-	return answersArray;
-}
