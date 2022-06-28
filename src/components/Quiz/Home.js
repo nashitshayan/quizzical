@@ -1,14 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useUserAuth } from '../../context/UserAuthContext';
+import { db } from '../../firebase';
 import Quiz from './Quiz';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 function Home() {
-	const { logOut } = useUserAuth();
+	const { user, logOut } = useUserAuth();
 	const [quizQuestions, setQuizQuestions] = useState([]);
 	const [quizAnswers, setQuizAnswers] = useState([]);
 	const [correctAnswers, setCorrectAnswers] = useState([]);
 	const [isQuiz, setIsQuiz] = useState(false);
 	const [isCheckAnswers, setIsCheckAnswers] = useState(false);
 	const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
+
+	//set score to DB
+	useEffect(() => {
+		async function setScoreTomDB() {
+			const docRef = doc(db, 'users', user.uid);
+			const docSnap = await getDoc(docRef);
+
+			if (docSnap.exists()) {
+				const updatedScore = docSnap.data().score + correctAnswerCount;
+				await setDoc(docRef, { score: updatedScore }, { merge: true });
+			} else {
+				//set an initial score for the new user
+				await setDoc(docRef, {
+					name: user.displayName,
+					score: correctAnswerCount,
+				});
+			}
+		}
+		setScoreTomDB();
+	}, [correctAnswerCount]);
 
 	const handleAnswerSelected = (qId, aId) => {
 		setQuizAnswers((oldQuizAnswers) => {
