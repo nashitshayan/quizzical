@@ -3,6 +3,7 @@ import { useUserAuth } from '../../context/UserAuthContext';
 import { db } from '../../firebase';
 import Quiz from './Quiz';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import Leaderboard from './Leaderboard';
 function Home() {
 	const { user, logOut } = useUserAuth();
 	const [quizQuestions, setQuizQuestions] = useState([]);
@@ -11,7 +12,7 @@ function Home() {
 	const [isQuiz, setIsQuiz] = useState(false);
 	const [isCheckAnswers, setIsCheckAnswers] = useState(false);
 	const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
-
+	const [isLeaderboard, setIsLeaderboard] = useState(false);
 	//set score to DB
 	useEffect(() => {
 		async function setScoreTomDB() {
@@ -151,46 +152,55 @@ function Home() {
 			<nav>
 				<h2>It's Quiz Time!</h2>
 				<div className='btn-wrapper'>
-					<button className='btn-primary'> Leaderboard</button>
+					<button
+						className='btn-primary'
+						onClick={() => setIsLeaderboard(!isLeaderboard)}>
+						{' '}
+						Leaderboard
+					</button>
 					<button className='btn-primary' onClick={handleLogOut}>
 						Log Out
 					</button>
 				</div>
 				<hr className='break-line' />
 			</nav>
-			<div className='quiz-wrapper'>
-				{isQuiz ? (
-					<>
-						<Quiz
-							quizQuestions={quizQuestions}
-							quizAnswers={quizAnswers}
-							handleAnswerSelected={handleAnswerSelected}
-						/>
-						<div className='btn-wrapper'>
-							{isCheckAnswers ? (
-								<>
-									<h4>You scored {correctAnswerCount}/5 correct answers</h4>
-									<button className='btn-primary' onClick={handlePlayAgain}>
-										Play Again
+			{isLeaderboard ? (
+				<Leaderboard />
+			) : (
+				<div className='quiz-wrapper'>
+					{isQuiz ? (
+						<>
+							<Quiz
+								quizQuestions={quizQuestions}
+								quizAnswers={quizAnswers}
+								handleAnswerSelected={handleAnswerSelected}
+							/>
+							<div className='btn-wrapper'>
+								{isCheckAnswers ? (
+									<>
+										<h4>You scored {correctAnswerCount}/5 correct answers</h4>
+										<button className='btn-primary' onClick={handlePlayAgain}>
+											Play Again
+										</button>
+									</>
+								) : (
+									<button className='btn-primary' onClick={handleCheckAnswers}>
+										Check Answers
 									</button>
-								</>
-							) : (
-								<button className='btn-primary' onClick={handleCheckAnswers}>
-									Check Answers
+								)}
+							</div>
+						</>
+					) : (
+						<>
+							<div className='btn-wrapper'>
+								<button className='btn-primary' onClick={handleGetQuiz}>
+									Start Quiz
 								</button>
-							)}
-						</div>
-					</>
-				) : (
-					<>
-						<div className='btn-wrapper'>
-							<button className='btn-primary' onClick={handleGetQuiz}>
-								Start Quiz
-							</button>
-						</div>
-					</>
-				)}
-			</div>
+							</div>
+						</>
+					)}
+				</div>
+			)}
 		</main>
 	);
 }

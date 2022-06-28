@@ -129,6 +129,26 @@ nav {
 	justify-content: center;
 }
 
+.leaderboard-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+}
+
+.leaderboard-wrapper table {
+	background-color: var(--clr--line);
+}
+.leaderboard-wrapper thead {
+	background-color: var(--clr--accent--one);
+}
+.leaderboard-wrapper table th {
+	color: var(--clr--primary);
+}
+.leaderboard-wrapper table tbody tr th {
+	color: var(--clr--secondary);
+}
+
 footer a {
 	text-decoration: none;
 	color: var(--clr--success);
