@@ -111,16 +111,18 @@ function Home() {
 
 	//count the correct answers
 	useEffect(() => {
-		let count = 0;
-		quizAnswers.forEach((quizItemAnswers) =>
-			quizItemAnswers.forEach((answer) => {
-				if (answer.isCorrect) {
-					count++;
-				}
-			}),
-		);
-		setCorrectAnswerCount(count);
-	}, [quizAnswers]);
+		if (isCheckAnswers) {
+			let count = 0;
+			quizAnswers.forEach((quizItemAnswers) =>
+				quizItemAnswers.forEach((answer) => {
+					if (answer.isCorrect) {
+						count++;
+					}
+				}),
+			);
+			setCorrectAnswerCount(count);
+		}
+	}, [isCheckAnswers]);
 
 	return (
 		<main className='home-wrapper'>
