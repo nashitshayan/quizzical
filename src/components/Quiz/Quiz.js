@@ -5,12 +5,7 @@ import {
 	answerIncorrect,
 } from '../../styles/inline-styles';
 
-function Quiz({
-	quizQuestions,
-	quizAnswers,
-	handleAnswerSelected,
-	answerStyle,
-}) {
+function Quiz({ quizQuestions, quizAnswers, handleAnswerSelected }) {
 	const customAnswerStyles = (answer) => {
 		if (answer.isCorrect) return answerCorrect;
 		if (answer.isInCorrect) return answerIncorrect;

@@ -7,6 +7,8 @@ function Home() {
 	const [quizAnswers, setQuizAnswers] = useState([]);
 	const [correctAnswers, setCorrectAnswers] = useState([]);
 	const [isQuiz, setIsQuiz] = useState(false);
+	const [isCheckAnswers, setIsCheckAnswers] = useState(false);
+	const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
 
 	const handleAnswerSelected = (qId, aId) => {
 		setQuizAnswers((oldQuizAnswers) => {
@@ -32,13 +34,13 @@ function Home() {
 
 	const processFechedData = (quizData) => {
 		quizData.forEach((quizItem) => {
-			const answers = [];
-			answers.push({
+			const quizItemAnswers = [];
+			quizItemAnswers.push({
 				option: quizItem.correct_answer,
 				isSelected: false,
 			});
 			quizItem.incorrect_answers.forEach((incorrectAns) =>
-				answers.push({
+				quizItemAnswers.push({
 					option: incorrectAns,
 					isSelected: false,
 				}),
@@ -46,7 +48,7 @@ function Home() {
 
 			setQuizAnswers((prevAnswers) => [
 				...prevAnswers,
-				shuffleAnswers(answers),
+				shuffleAnswers(quizItemAnswers),
 			]);
 			setCorrectAnswers((prevCorrectAnswers) => [
 				...prevCorrectAnswers,
@@ -58,6 +60,7 @@ function Home() {
 			]);
 		});
 	};
+
 	const handleGetQuiz = async () => {
 		const res = await fetch(
 			'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple',
@@ -73,8 +76,9 @@ function Home() {
 				(quizItemAnswers, index) => {
 					const updatedQuizItemAnswers = quizItemAnswers.map((answer) => {
 						if (answer.isSelected) {
-							if (answer.option === correctAnswers[index])
+							if (answer.option === correctAnswers[index]) {
 								return { ...answer, isCorrect: true };
+							}
 							return { ...answer, isInCorrect: true };
 						}
 						return answer;
@@ -84,7 +88,19 @@ function Home() {
 			);
 			return updatedQuizAnswers;
 		});
+
+		setIsCheckAnswers(true);
 	};
+
+	const handlePlayAgain = () => {
+		setQuizAnswers([]);
+		setCorrectAnswers([]);
+		setQuizQuestions([]);
+		setCorrectAnswerCount(0);
+		setIsCheckAnswers(false);
+		handleGetQuiz();
+	};
+
 	const handleLogOut = async () => {
 		try {
 			await logOut();
@@ -92,6 +108,20 @@ function Home() {
 			alert(err);
 		}
 	};
+
+	//count the correct answers
+	useEffect(() => {
+		let count = 0;
+		quizAnswers.forEach((quizItemAnswers) =>
+			quizItemAnswers.forEach((answer) => {
+				if (answer.isCorrect) {
+					count++;
+				}
+			}),
+		);
+		setCorrectAnswerCount(count);
+	}, [quizAnswers]);
+
 	return (
 		<main className='home-wrapper'>
 			<nav>
@@ -113,9 +143,18 @@ function Home() {
 							handleAnswerSelected={handleAnswerSelected}
 						/>
 						<div className='btn-wrapper'>
-							<button className='btn-primary' onClick={handleCheckAnswers}>
-								Check Answers
-							</button>
+							{isCheckAnswers ? (
+								<>
+									<h4>You scored {correctAnswerCount}/5 correct answers</h4>
+									<button className='btn-primary' onClick={handlePlayAgain}>
+										Play Again
+									</button>
+								</>
+							) : (
+								<button className='btn-primary' onClick={handleCheckAnswers}>
+									Check Answers
+								</button>
+							)}
 						</div>
 					</>
 				) : (
