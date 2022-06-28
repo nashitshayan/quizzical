@@ -4,8 +4,6 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 	onAuthStateChanged,
-	GoogleAuthProvider,
-	signInWithPopup,
 	sendPasswordResetEmail,
 	updateProfile,
 } from 'firebase/auth';
@@ -29,10 +27,7 @@ export function UserAuthContextProvider({ children }) {
 	function logOut() {
 		return signOut(auth);
 	}
-	function googleSignIn() {
-		const googleAuthProvider = new GoogleAuthProvider();
-		return signInWithPopup(auth, googleAuthProvider);
-	}
+
 	function sendPasswordReset(email) {
 		return sendPasswordResetEmail(auth, email);
 	}
@@ -60,7 +55,6 @@ export function UserAuthContextProvider({ children }) {
 				signUp,
 				signIn,
 				logOut,
-				googleSignIn,
 				sendPasswordReset,
 				updateUserName,
 			}}>

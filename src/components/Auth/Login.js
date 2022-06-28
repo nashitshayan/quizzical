@@ -7,14 +7,13 @@ import Box from '@mui/material/Box';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import GoogleIcon from '@mui/icons-material/Google';
 import { inputOutlineOverride } from '../../styles/inline-styles';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../context/UserAuthContext';
 
 function Login({ email, password, handleInput, error, setError }) {
 	const navigate = useNavigate();
-	const { signIn, googleSignIn } = useUserAuth();
+	const { signIn } = useUserAuth();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setError('');
@@ -25,16 +24,7 @@ function Login({ email, password, handleInput, error, setError }) {
 			setError(err.messgage);
 		}
 	};
-	const handleGoogleSignIn = async (e) => {
-		e.preventDefault();
-		try {
-			await googleSignIn();
-			navigate('/home');
-		} catch (err) {
-			setError(err.messgage);
-			console.log(error);
-		}
-	};
+
 	return (
 		<Container component='main' maxWidth='xs' className='auth-container'>
 			<Box
@@ -81,23 +71,8 @@ function Login({ email, password, handleInput, error, setError }) {
 						type='submit'
 						fullWidth
 						variant='contained'
-						sx={{ mt: 3, mb: 1, p: 1 }}>
+						sx={{ mt: 3, mb: 2, p: 1 }}>
 						Sign In
-					</Button>
-					<Typography
-						component='p'
-						variant='body2'
-						sx={{ textAlign: 'center' }}>
-						OR
-					</Typography>
-					<Button
-						type='submit'
-						fullWidth
-						variant='contained'
-						sx={{ mt: 1, mb: 2, p: 1 }}
-						onClick={handleGoogleSignIn}>
-						<GoogleIcon sx={{ mr: 1 }} />
-						Continue with Google
 					</Button>
 
 					<Grid container>
