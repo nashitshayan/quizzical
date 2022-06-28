@@ -22,7 +22,7 @@ function Quiz({ quizQuestions, quizAnswers, handleAnswerSelected }) {
 						style={customAnswerStyles(quizAnswer)}
 						className='quiz-item__options-option'
 						onClick={() => handleAnswerSelected(qIndex, aIndex)}>
-						{quizAnswer.option}
+						{decode(quizAnswer.option)}
 					</li>
 				))}
 			</div>
