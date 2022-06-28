@@ -10,8 +10,10 @@ import Container from '@mui/material/Container';
 import { inputOutlineOverride } from '../../styles/inline-styles';
 import { useState } from 'react';
 import { useUserAuth } from '../../context/UserAuthContext';
+import { Alert } from '@mui/material';
 
-function PasswordReset({ email, handleInput, error, setError }) {
+function PasswordReset({ email, handleInput }) {
+	const [error, setError] = useState('');
 	const [passwordResetStatus, setPasswordResetStatus] = useState(false);
 	const { sendPasswordReset } = useUserAuth();
 	const handleSubmit = async (e) => {
@@ -21,6 +23,7 @@ function PasswordReset({ email, handleInput, error, setError }) {
 			await sendPasswordReset(email);
 			setPasswordResetStatus(true);
 		} catch (err) {
+			console.log(error);
 			setError(err.message);
 		}
 	};
@@ -61,6 +64,11 @@ function PasswordReset({ email, handleInput, error, setError }) {
 							onSubmit={handleSubmit}
 							noValidate
 							sx={{ mt: 1 }}>
+							{error && (
+								<Alert severity='error' sx={{ justifyContent: 'center' }}>
+									{error}
+								</Alert>
+							)}
 							<TextField
 								margin='normal'
 								required

@@ -10,8 +10,10 @@ import Container from '@mui/material/Container';
 import { inputOutlineOverride } from '../../styles/inline-styles';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../context/UserAuthContext';
-
-function Login({ email, password, handleInput, error, setError }) {
+import { Alert } from '@mui/material';
+import { useState } from 'react';
+function Login({ email, password, handleInput }) {
+	const [error, setError] = useState('');
 	const navigate = useNavigate();
 	const { signIn } = useUserAuth();
 	const handleSubmit = async (e) => {
@@ -21,7 +23,7 @@ function Login({ email, password, handleInput, error, setError }) {
 			await signIn(email, password);
 			navigate('/home');
 		} catch (err) {
-			setError(err.messgage);
+			setError(err.message);
 		}
 	};
 
@@ -40,7 +42,13 @@ function Login({ email, password, handleInput, error, setError }) {
 				<Typography component='h1' variant='h5'>
 					Sign In
 				</Typography>
+
 				<Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+					{error && (
+						<Alert severity='error' sx={{ justifyContent: 'center' }}>
+							{error}
+						</Alert>
+					)}
 					<TextField
 						margin='normal'
 						required
