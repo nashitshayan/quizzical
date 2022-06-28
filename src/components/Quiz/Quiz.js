@@ -4,7 +4,7 @@ import {
 	answerSelected,
 	answerIncorrect,
 } from '../../styles/inline-styles';
-
+import { decode } from 'he';
 function Quiz({ quizQuestions, quizAnswers, handleAnswerSelected }) {
 	const customAnswerStyles = (answer) => {
 		if (answer.isCorrect) return answerCorrect;
@@ -14,7 +14,7 @@ function Quiz({ quizQuestions, quizAnswers, handleAnswerSelected }) {
 	};
 	const quiz = quizQuestions.map((quizQuestion, qIndex) => (
 		<div className='quiz-item' key={qIndex}>
-			<h3>{quizQuestion}</h3>
+			<h3>{decode(quizQuestion)}</h3>
 			<div className='quiz-item__options'>
 				{quizAnswers[qIndex].map((quizAnswer, aIndex) => (
 					<li
