@@ -43,7 +43,7 @@ function Home() {
 								if (aId === index) {
 									return { ...answer, isSelected: !answer.isSelected };
 								}
-								return answer;
+								return { ...answer, isSelected: false };
 							},
 						);
 						return updatedQuizItemAnswers;
