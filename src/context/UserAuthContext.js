@@ -8,6 +8,8 @@ import {
 	updateProfile,
 } from 'firebase/auth';
 import { auth } from '../firebase';
+import { CircularProgress } from '@mui/material';
+import Box from '@mui/material/Box';
 
 // create context
 const userAuthContext = createContext();
@@ -45,7 +47,8 @@ export function UserAuthContextProvider({ children }) {
 	if (isPending)
 		return (
 			<div className='loading-wrapper'>
-				<span>Loading...</span>
+				<h2>Loading...</h2>
+				<CircularProgress color='inherit' />
 			</div>
 		);
 	return (

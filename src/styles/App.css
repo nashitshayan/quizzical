@@ -149,6 +149,17 @@ nav {
 	color: var(--clr--secondary);
 }
 
+.loading-wrapper {
+	border: 1px solid #293264;
+	height: 100vh;
+	background-color: var(--clr--accent--one);
+	color: var(--clr--primary);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 footer a {
 	text-decoration: none;
 	color: var(--clr--success);
