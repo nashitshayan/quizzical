@@ -30,9 +30,7 @@
 
 
 ## Credits
-* <a href="https://scrimba.com/learn/learnreact" title="scrimba-react-course">Free React Course - Scrimba</a>
 * <a href="https://www.figma.com/file/E9S5iPcm10f0RIHK8mCqKL/Quizzical-App?node-id=0%3A1" title="figma-file">Link to the Figma design file</a>
 * <a href="https://www.flaticon.com/free-icons/quiz" title="quiz icons">Quiz icons created by Freepik - Flaticon</a>
-* <a href="https://mui.com/" title="material-ui">Material UI</a>
 * <a href="https://www.npmjs.com/package/he" title="html-encoder">he (for “HTML entities”) is a robust HTML entity encoder/decoder written in JavaScript.</a>
-* <a href="https://firebase.google.com/" title="firebase">Firebase</a>
+
